@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:seat_geek_flutter/data/bhandaram.dart';
 import 'package:seat_geek_flutter/models/event.dart';
+import 'package:seat_geek_flutter/utils/utils.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../theme/styles.dart';
@@ -65,7 +66,7 @@ class _EventsState extends State<Events> {
           children: [
             _buildSearchBox(),
             Expanded(
-              child: !_loading ? ListView.builder(
+              child: !_loading ? _events.isEmpty ? svgImage(100, 100,"No events found!",'images/empty_events.svg') : ListView.builder(
                 itemBuilder: (context, index) => EvenItemView(
                   event: _events[index],
                   lastItem: index == _events.length - 1,

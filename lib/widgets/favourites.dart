@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:seat_geek_flutter/data/bhandaram.dart';
 import 'package:seat_geek_flutter/models/favourite.dart';
 import 'package:seat_geek_flutter/theme/styles.dart';
+import 'package:seat_geek_flutter/utils/utils.dart';
 import 'package:seat_geek_flutter/widgets/favourite_item.dart';
 
 class FavouritesView extends StatefulWidget{
@@ -25,28 +26,31 @@ class _FavouritesViewState extends State<FavouritesView> {
 
   @override
   Widget build(BuildContext context) {
-    return kIsWeb ? const Center(child: Text("Favourites are not available in web"),) : DecoratedBox(
-      decoration: const BoxDecoration(
-        color: Styles.scaffoldBackground,
-      ),
-      child: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) => FavouriteItem(
-                  favourite: _favourites[index],
-                  lastItem: index == _favourites.length - 1,
-                  onFavUpdate: (status){
-                    Bhandaram.unFavItem(_favourites[index].eventId!);
-                    _favourites.removeAt(index);
-                    _loadFavourites(false);
-                  },
+    return kIsWeb ? const Center(child: Text("Favourites are not available in web"),) : Container(
+      width: double.infinity,
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+          color: Styles.scaffoldBackground,
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: _favourites.isEmpty ? svgImage(100, 100,"No favourites found!",'images/empty_favourites.svg') : ListView.builder(
+                  itemBuilder: (context, index) => FavouriteItem(
+                    favourite: _favourites[index],
+                    lastItem: index == _favourites.length - 1,
+                    onFavUpdate: (status){
+                      Bhandaram.unFavItem(_favourites[index].eventId!);
+                      _favourites.removeAt(index);
+                      _loadFavourites(false);
+                    },
+                  ),
+                  itemCount: _favourites.length,
                 ),
-                itemCount: _favourites.length,
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
