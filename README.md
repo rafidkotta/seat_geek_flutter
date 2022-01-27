@@ -1,4 +1,4 @@
-##Seat Geek API Flutter
+Seat Geek API Flutter
 
 ## Description
 * An event listing using Seat Geek API.
