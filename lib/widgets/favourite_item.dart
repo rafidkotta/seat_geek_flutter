@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:seat_geek_flutter/data/bhandaram.dart';
+import 'package:seat_geek_flutter/models/event.dart';
 import 'package:seat_geek_flutter/models/favourite.dart';
 import 'package:seat_geek_flutter/theme/styles.dart';
 import 'package:seat_geek_flutter/utils/utils.dart';
+
+import 'event_view.dart';
 
 class FavouriteItem extends StatelessWidget{
   final Favourite favourite;
@@ -17,7 +20,8 @@ class FavouriteItem extends StatelessWidget{
     final item = GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: (){
-        // Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(builder: (context) => EventView(event: widget.event,isFav: false,)))
+        Event _event = Event(favourite: true,title: favourite.title,id: int.parse(favourite.eventId!));
+        Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(builder: (context) => EventView(event: _event,isFav: true, onFav: (bool value) {  },)));
       },
       child: SafeArea(
         child: Padding(

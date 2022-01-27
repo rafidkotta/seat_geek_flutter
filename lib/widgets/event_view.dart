@@ -19,45 +19,54 @@ class EventView extends StatefulWidget{
 
 class _EventViewState extends State<EventView> {
   List<Widget> _imageSliders = <Widget>[];
+  Event? _event;
+  bool _loaded = true;
 
   @override
   void initState() {
     super.initState();
-    initSlides();
+      _event = widget.event;
+    if(!widget.isFav){
+      initSlides();
+    }else{
+      _loadEvent();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text(widget.event!.title!),
+        middle: Text(_event!.title!),
         trailing: CupertinoButton(
-          child: widget.event!.favourite ? const Icon(MaterialCommunityIcons.heart,color:CupertinoColors.systemRed,) : const Icon(MaterialCommunityIcons.heart_outline,color:CupertinoColors.systemRed,),
+          child: _event!.favourite ? const Icon(MaterialCommunityIcons.heart,color:CupertinoColors.systemRed,) : const Icon(MaterialCommunityIcons.heart_outline,color:CupertinoColors.systemRed,),
           onPressed: ()async {
-            Favourite _favourite = Favourite(photo: widget.event!.performers![0].image,location: widget.event!.venue!.displayLocation!,eventTime: widget.event!.datetimeUtc!,eventId: widget.event!.id!.toString(),title: widget.event!.title);
-            if(!widget.event!.favourite){
-              var stat = await Bhandaram.db!.addFavourite(_favourite);
-              if(stat > 0){
-                widget.event!.favourite = true;
-                widget.onFav!(true);
-                if(mounted){
-                  setState(() {});
+            if(_loaded){
+              Favourite _favourite = Favourite(photo: _event!.performers![0].image,location: _event!.venue!.displayLocation!,eventTime: _event!.datetimeUtc!,eventId: _event!.id!.toString(),title: _event!.title);
+              if(!_event!.favourite){
+                var stat = await Bhandaram.db!.addFavourite(_favourite);
+                if(stat > 0){
+                  _event!.favourite = true;
+                  widget.onFav!(true);
+                  if(mounted){
+                    setState(() {});
+                  }
                 }
-              }
-            }else{
-              var status = await Bhandaram.db!.deleteExpense(_favourite);
-              if(status > 0){
-                widget.event!.favourite = false;
-                widget.onFav!(false);
-                if(mounted){
-                  setState(() {});
+              }else{
+                var status = await Bhandaram.db!.deleteExpense(_favourite);
+                if(status > 0){
+                  _event!.favourite = false;
+                  widget.onFav!(false);
+                  if(mounted){
+                    setState(() {});
+                  }
                 }
               }
             }
           },
         ),
       ),
-        child: Column(
+        child: _loaded ? Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
@@ -73,19 +82,32 @@ class _EventViewState extends State<EventView> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8,bottom: 3),
-              child: Text(parseDate(widget.event!.datetimeUtc!),textAlign: TextAlign.start,style: const TextStyle(fontWeight: FontWeight.w600,color: CupertinoColors.black),),
+              child: Text(parseDate(_event!.datetimeUtc!),textAlign: TextAlign.start,style: const TextStyle(fontWeight: FontWeight.w600,color: CupertinoColors.black),),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8,bottom: 3),
-              child: Text(widget.event!.venue!.displayLocation!,style: const TextStyle(fontWeight: FontWeight.normal,color: Colors.black54),),
+              child: Text(_event!.venue!.displayLocation!,style: const TextStyle(fontWeight: FontWeight.normal,color: Colors.black54),),
             )
           ],
-        )
+        ): const Center(child: CircularProgressIndicator(),)
     );
   }
 
+  _loadEvent()async{
+    _loaded = false;
+    var data = await getEvent(context: context,eventId: widget.event!.id!.toString(), body: null);
+    _event = data!;
+    _event!.favourite = widget.event!.favourite;
+    initSlides();
+    if(mounted){
+      setState(() {
+        _loaded = true;
+      });
+    }
+  }
+
   initSlides(){
-    _imageSliders = widget.event!.performers!
+    _imageSliders = _event!.performers!
         .map((item) => Container(
           margin: const EdgeInsets.all(5.0),
           child: ClipRRect(

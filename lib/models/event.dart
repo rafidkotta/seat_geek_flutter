@@ -14,6 +14,16 @@ Future<EventsResponse?> getEvents({required BuildContext context,required Map<St
   }
 }
 
+Future<Event?> getEvent({required BuildContext context,required Map<String,String>? body,required String eventId})async{
+  var _response = await apiCall(url: urlListEvents+eventId, context: context,body: body);
+  if(_response!.statusCode == 200){
+    var _data = json.decode(_response.body);
+    return Event.fromJson(_data);
+  }else{
+    return Event(favourite: false);
+  }
+}
+
 class EventsResponse {
   List<Event>? events;
   Meta? meta;
@@ -80,6 +90,7 @@ class Event {
         this.id,
         this.datetimeUtc,
         this.venue,
+        required this.favourite,
         this.datetimeTbd,
         this.performers,
         this.isOpen,
