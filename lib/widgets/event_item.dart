@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:seat_geek_flutter/data/bhandaram.dart';
@@ -57,7 +58,7 @@ class _EvenItemViewState extends State<EvenItemView> {
               ),
             ),
             ),
-            Center(
+            !kIsWeb ? Center(
               child: CupertinoButton(
                 child: widget.event.favourite ? const Icon(MaterialCommunityIcons.heart,color:CupertinoColors.systemRed,) : const Icon(MaterialCommunityIcons.heart_outline,color:CupertinoColors.systemRed,),
                 onPressed: ()async {
@@ -77,7 +78,7 @@ class _EvenItemViewState extends State<EvenItemView> {
                   }
                 },
               ),
-            )
+            ) : Container()
           ],
         ),
       ),

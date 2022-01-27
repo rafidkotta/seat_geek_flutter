@@ -25,7 +25,7 @@ class _FavouritesViewState extends State<FavouritesView> {
 
   @override
   Widget build(BuildContext context) {
-    return kIsWeb ? const Center(child: Text("Favourites not available in Web"),) : DecoratedBox(
+    return kIsWeb ? const Center(child: Text("Favourites are not available in web"),) : DecoratedBox(
       decoration: const BoxDecoration(
         color: Styles.scaffoldBackground,
       ),

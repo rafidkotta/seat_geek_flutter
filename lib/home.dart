@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:seat_geek_flutter/data/bhandaram.dart';
 import 'widgets/events.dart';
@@ -18,7 +19,9 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    Bhandaram.init();
+    if(!kIsWeb){
+      Bhandaram.init();
+    }
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
         middle: Text('Seat Geek by Rafid'),
