@@ -1,9 +1,9 @@
-#Seat Geek API Flutter
+##Seat Geek API Flutter
 
 ## Description
-* A chat app made by Flutter and Firebase.
-* An event list app made by Rafid
-* Supported platforms :- Android, iOS, MacOS, Web (others can be added also),
+* An event listing using Seat Geek API.
+* Supported platforms :- Android, iOS, MacOS, Web (others can be added also)
+* Favourite feature available on platforms other than web
 
 ## Plugins used
 * http
