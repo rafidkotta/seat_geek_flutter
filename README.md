@@ -1,16 +1,33 @@
-# seat_geek_flutter
+#Seat Geek API Flutter
 
-Seat Geek API Flutter
+## Description
+* A chat app made by Flutter and Firebase.
+* An event list app made by Rafid
+* Supported platforms :- Android, iOS, MacOS, Web (others can be added also),
 
-## Getting Started
+## Plugins used
+* http
+* intl
+* flutter_vector_icons
+* carousel_slider
+* shimmer
+* sqflite
+* path_provider 
+* flutter_svg
 
-This project is a starting point for a Flutter application.
+## Screenshot
+<img src="https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/screenshots/FlutterChatDemo.gif" height="50%" width="50%">
 
-A few resources to get you started if this is your first Flutter project:
+## How to run
+* Clone this repo
+* Run `flutter packages get`
+* Create account in Seat Geek at http://platform.seatgeek.com/ and get client_id
+* Generate API secret
+* Replace client_id and Secret in `/lib/constant/credentials.dart`
+* Run `flutter run`
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Live preview
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+https://seat-geek-flutter.web.app/
+
+Note: this page is built with flutter-web. For a better user experience, please use a mobile device to open this link.
