@@ -15,9 +15,6 @@
 * path_provider 
 * flutter_svg
 
-## Screenshot
-<img src="https://raw.githubusercontent.com/duytq94/flutter-chat-demo/master/screenshots/FlutterChatDemo.gif" height="50%" width="50%">
-
 ## How to run
 * Clone this repo
 * Run `flutter packages get`
