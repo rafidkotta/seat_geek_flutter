@@ -20,7 +20,7 @@ Seat Geek API Flutter
 * Run `flutter packages get`
 * Create account in Seat Geek at http://platform.seatgeek.com/ and get client_id
 * Generate API secret
-* Replace client_id and Secret in `/lib/constant/credentials.dart`
+* Replace client_id and Secret in `/lib/constant/credentials.dart` with yours.
 * Run `flutter run`
 
 ## Live preview
