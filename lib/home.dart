@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
     Bhandaram.init();
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
-        middle: Text('Seek Geek by Rafid'),
+        middle: Text('Seat Geek by Rafid'),
       ),
       child: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
