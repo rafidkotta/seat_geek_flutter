@@ -2,13 +2,16 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:seat_geek_flutter/data/bhandaram.dart';
 import 'package:seat_geek_flutter/models/event.dart';
+import 'package:seat_geek_flutter/models/favourite.dart';
 import 'package:seat_geek_flutter/utils/utils.dart';
 
 class EventView extends StatefulWidget{
   final bool isFav;
   final Event? event;
-  const EventView({Key? key,required this.isFav,required this.event}) : super(key: key);
+  final OnFav? onFav;
+  const EventView({Key? key,required this.isFav,required this.event,required this.onFav}) : super(key: key);
 
   @override
   State<EventView> createState() => _EventViewState();
@@ -28,6 +31,31 @@ class _EventViewState extends State<EventView> {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         middle: Text(widget.event!.title!),
+        trailing: CupertinoButton(
+          child: widget.event!.favourite ? const Icon(MaterialCommunityIcons.heart,color:CupertinoColors.systemRed,) : const Icon(MaterialCommunityIcons.heart_outline,color:CupertinoColors.systemRed,),
+          onPressed: ()async {
+            Favourite _favourite = Favourite(photo: widget.event!.performers![0].image,location: widget.event!.venue!.displayLocation!,eventTime: widget.event!.datetimeUtc!,eventId: widget.event!.id!.toString(),title: widget.event!.title);
+            if(!widget.event!.favourite){
+              var stat = await Bhandaram.db!.addFavourite(_favourite);
+              if(stat > 0){
+                widget.event!.favourite = true;
+                widget.onFav!(true);
+                if(mounted){
+                  setState(() {});
+                }
+              }
+            }else{
+              var status = await Bhandaram.db!.deleteExpense(_favourite);
+              if(status > 0){
+                widget.event!.favourite = false;
+                widget.onFav!(false);
+                if(mounted){
+                  setState(() {});
+                }
+              }
+            }
+          },
+        ),
       ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

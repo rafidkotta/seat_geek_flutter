@@ -77,7 +77,9 @@ class _EventsState extends State<Events> {
                       _events[index].favourite = false;
                     }
                     Bhandaram.updateFavourites();
-                    setState(() {});
+                    if(mounted){
+                      setState(() {});
+                    }
                   },
                 ),
                 itemCount: _events.length,

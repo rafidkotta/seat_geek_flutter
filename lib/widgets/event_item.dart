@@ -26,7 +26,7 @@ class _EvenItemViewState extends State<EvenItemView> {
     final item = GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: (){
-        Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(builder: (context) => EventView(event: widget.event,isFav: false,)));
+        Navigator.of(context, rootNavigator: true).push(CupertinoPageRoute(builder: (context) => EventView(event: widget.event,isFav: widget.event.favourite,onFav: widget.onFavUpdate,)));
       },
       child: SafeArea(
         child: Padding(
