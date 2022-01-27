@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
     }
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
-        middle: Text('Seat Geek by Rafid'),
+        middle: Text('Seat Geek'),
       ),
       child: CupertinoTabScaffold(
         tabBar: CupertinoTabBar(

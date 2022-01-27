@@ -26,7 +26,7 @@ class _FavouritesViewState extends State<FavouritesView> {
 
   @override
   Widget build(BuildContext context) {
-    return kIsWeb ? const Center(child: Text("Favourites are not available in web"),) : Container(
+    return kIsWeb ? Center(child: svgImage(100, 100,"Favourites are not available in web!",'images/empty_favourites.svg')) : SizedBox(
       width: double.infinity,
       child: DecoratedBox(
         decoration: const BoxDecoration(
